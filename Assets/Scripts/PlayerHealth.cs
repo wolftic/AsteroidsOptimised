@@ -23,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
 		{
 			Regeneration ();
 		}
-
+			
 		if(poisoned && invokingPoison == false){
 			InvokeRepeating ("Poisoning", 1, 1);
 			invokingPoison = true;
