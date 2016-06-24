@@ -2,28 +2,37 @@
 using System.Collections;
 
 public class EnemyMovement : MonoBehaviour {
-	float xSpeed;
-	Vector3 movement;
+	private float xSpeed;
+	private Vector3 movement;
 
-	public ParticleSystem[] thrusters;
+	[SerializeField]
+	private ParticleSystem[] thrusters;
+	
 	public Transform target;
-	public float maxSpeed;
-	public float RANGE;
-	public float SEERANGE;
+	[SerializeField]
+	private float maxSpeed;
+	[SerializeField]
+	private float range;
+	[SerializeField]
+	private float seeRange;
+
 	public bool inRange;
 
 	private GameObject[] players;
+	private Transform child;
+
+	private float lastRotChange;
+	private Quaternion newRot;
+	private Quaternion oldRot;
 
 	void Start () {
 		maxSpeed = 30.0f;
 		inRange = false;
 
 		players = GameObject.FindGameObjectsWithTag ("Player");
+		child = child;
 		GameObject.FindGameObjectWithTag ("Camera").GetComponent<CompassScript> ().AddPoint ("Enemy", gameObject, Color.red);
 	}
-
-	Quaternion newRot;
-	Quaternion oldRot;
 
 	void Update () {
 		if (target) {
@@ -32,8 +41,6 @@ public class EnemyMovement : MonoBehaviour {
 			Patrol ();
 		}
 	}
-
-	float lastRotChange;
 
 	void Patrol() {
 		CheckIfPlayerIsVisible ();	
@@ -55,7 +62,7 @@ public class EnemyMovement : MonoBehaviour {
 
 		diff = Mathf.Clamp (diff, -1, 1);
 
-		transform.GetChild (0).localRotation = Quaternion.Lerp (transform.GetChild (0).localRotation, Quaternion.Euler (diff * 30.0f * Vector3.forward), 5.0f * Time.deltaTime);
+		child.localRotation = Quaternion.Lerp (child.localRotation, Quaternion.Euler (diff * 30.0f * Vector3.forward), 5.0f * Time.deltaTime);
 
 		if (thrusters != null) {
 			for (int i = 0; i < thrusters.Length; i++) {
@@ -76,7 +83,7 @@ public class EnemyMovement : MonoBehaviour {
 			return;
 		}
 
-		if (Vector3.Distance (transform.position, target.position) < RANGE) {
+		if (Vector3.Distance (transform.position, target.position) < range) {
 			inRange = true;
 		} else {
 			inRange = false;
@@ -114,7 +121,7 @@ public class EnemyMovement : MonoBehaviour {
 
 		transform.Translate (Vector3.forward * Time.deltaTime * xSpeed);
 
-		transform.GetChild (0).localRotation = Quaternion.Lerp (transform.GetChild (0).localRotation, Quaternion.Euler (diff * 30.0f * Vector3.forward), 5.0f * Time.deltaTime);
+		child.localRotation = Quaternion.Lerp (child.localRotation, Quaternion.Euler (diff * 30.0f * Vector3.forward), 5.0f * Time.deltaTime);
 	}
 
 	void CheckIfPlayerIsVisible() {
@@ -133,7 +140,7 @@ public class EnemyMovement : MonoBehaviour {
 			id = i;
 		}
 
-		if (distance <= SEERANGE && distance != 0) {
+		if (distance <= seeRange && distance != 0) {
 			target = players [id].transform;
 		} else {
 			target = null;

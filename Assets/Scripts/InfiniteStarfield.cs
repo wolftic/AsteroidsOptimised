@@ -8,22 +8,23 @@ public class InfiniteStarfield : MonoBehaviour {
 	private ParticleSystem.Particle[] points;
 	private ParticleSystem particleSystem;
 
-	public int starsMax = 100;
-	public float starSize = 1;
-	public float starDistance = 10;
-	public float starClipDistance = 1;
+	[SerializeField]
+	private int starsMax = 100;
+	[SerializeField]
+	private float starSize = 1;
+	[SerializeField]
+	private float starDistance = 10;
+	[SerializeField]
+	private float starClipDistance = 1;
 	private float starDistanceSqr;
 	private float starClipDistanceSqr;
 
-
-	// Use this for initialization
 	void Start () {
 		tx = transform;
 		starDistanceSqr = starDistance * starDistance;
 		starClipDistanceSqr = starClipDistance * starClipDistance;
 		particleSystem = GetComponent<ParticleSystem> ();
 	}
-
 
 	private void CreateStars() {
 		points = new ParticleSystem.Particle[starsMax];
@@ -35,8 +36,6 @@ public class InfiniteStarfield : MonoBehaviour {
 		}
 	}
 
-
-	// Update is called once per frame
 	void Update () {
 		if ( points == null ) CreateStars();
 
@@ -51,14 +50,7 @@ public class InfiniteStarfield : MonoBehaviour {
 				points[i].color = new Color(1,1,1, percent);
 				points[i].size = percent * starSize;
 			}
-
-
 		}
-
-
-
-
 		particleSystem.SetParticles ( points, points.Length );
-
 	}
 }

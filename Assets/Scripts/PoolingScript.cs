@@ -11,9 +11,8 @@ public class PoolingScript : MonoBehaviour {
 	private int specialPooledAmount = 2;
 	[SerializeField]
 	private bool willGrow = true;
-	//[HideInInspector]
-	//public GameObject bulletsAndComets;
-	List<List<GameObject>> pooledObjects;
+
+	private List<List<GameObject>> pooledObjects;
 
 	void Awake(){
 		current = this;

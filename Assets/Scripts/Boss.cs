@@ -4,11 +4,11 @@ using System.Collections;
 
 public class Boss : MonoBehaviour {
 	[Header("Boss information")]
-	private float Health;
+	private float health;
 	[Range(1, 50)][SerializeField]
-	private float Range;
+	private float range;
 	[SerializeField]
-	private float AbilityCooldown;
+	private float abilityCooldown;
 	[SerializeField]
 	private float speed;
 	public Bullet bullet;//
@@ -37,7 +37,7 @@ public class Boss : MonoBehaviour {
 	private UnityEvent OnDeath;
 
 	private bool inRange = true;
-	private bool Alive;
+	private bool alive;
 	private Transform target;
 	private StatusEffect.StatusType statusType;
 	private float cooldown;
@@ -48,23 +48,23 @@ public class Boss : MonoBehaviour {
 		em = GetComponent<EnemyHealth> ();
 		GameObject.FindGameObjectWithTag ("Camera").GetComponent<CompassScript> ().AddPoint ("Comet", gameObject, Color.white, icon);
 
-		Alive = true;
+		alive = true;
 		statusType = StatusEffect.StatusType.NONE;
-		cooldown = Time.time + AbilityCooldown;
+		cooldown = Time.time + abilityCooldown;
 	}
 
 	void Update () {
-		Health = em.Health;
+		health = em.health;
 		if (!target)
 			return;
 		
-		if (Vector3.Distance (transform.position, target.position) <= Range) {
+		if (Vector3.Distance (transform.position, target.position) <= range) {
 			if (!inRange) {
 				inRange = true;
 				OnInRange.Invoke ();
 			}
 			transform.LookAt (target, transform.up);
-			if (Vector3.Distance (transform.position, target.position) >= Range/3) {
+			if (Vector3.Distance (transform.position, target.position) >= range/3) {
 				transform.Translate (Vector3.forward * speed * Time.deltaTime);
 			}
 		} else {
@@ -74,21 +74,21 @@ public class Boss : MonoBehaviour {
 			}
 		}
 
-		if (Health <= 0) {
-			if (Alive) {
-				Alive = false;
+		if (health <= 0) {
+			if (alive) {
+				alive = false;
 				OnDeath.Invoke ();
 				PlayerPrefs.SetInt ("unlocked", level);
 			}
 		} else {
-			if (!Alive) {
-				Alive = true;
+			if (!alive) {
+				alive = true;
 				OnSpawn.Invoke ();
 			}
 		}
 
 		if (inRange && cooldown <= Time.time) {
-			cooldown = Time.time + AbilityCooldown;
+			cooldown = Time.time + abilityCooldown;
 
 			int performAttack = Mathf.RoundToInt (Random.Range (0, Attacks.Length));
 			Attacks [performAttack].Invoke ();

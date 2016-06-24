@@ -5,15 +5,20 @@ using UnityEngine.UI;
 public class PlayerShooting : MonoBehaviour 
 {
 
-	public Bullet projectile;
-	public Transform muzzle;
-	public float shootDelay;
-	public float bulletSpeed;
-	public float fireRate = 0.4F;
+	[SerializeField]
+	private Bullet projectile;
+	[SerializeField]
+	private Transform muzzle;
+	[SerializeField]
+	private float shootDelay;
+	[SerializeField]
+	private float bulletSpeed;
+	[SerializeField]
+	private float fireRate = 0.4F;
 	[SerializeField]
 	private Image ammoBar;
 	[SerializeField]
-	private string ShootSound;
+	private string shootSound;
 	private Movement movement;
 
 	private float nextFire = 0.0F;
@@ -57,7 +62,7 @@ public class PlayerShooting : MonoBehaviour
 
 		bullets -= 1;
 		nextFire = Time.time + fireRate;
-		SoundManager.current.PlaySound (ShootSound);
+		SoundManager.current.PlaySound (shootSound);
 
 	}
 

@@ -4,11 +4,16 @@ using System.Collections;
 public class EnemyShooting : MonoBehaviour 
 {
 
-	public Bullet projectile;
-	public Transform muzzle;
-	public float shootDelay;
-	public float bulletSpeed;
-	public float fireRate = 0.4F;
+	[SerializeField]
+	private Bullet projectile;
+	[SerializeField]
+	private Transform muzzle;
+	[SerializeField]
+	private float shootDelay;
+	[SerializeField]
+	private float bulletSpeed;
+	[SerializeField]
+	private float fireRate = 0.4F;
 	[SerializeField]
 	private string ShootSound;
 
@@ -28,8 +33,6 @@ public class EnemyShooting : MonoBehaviour
 
 	void Update()
 	{
-		
-
 		if(bullets > 0 && Time.time > nextFire && enemyMovement.inRange && enemyMovement.target )
 		{
 			Shoot();

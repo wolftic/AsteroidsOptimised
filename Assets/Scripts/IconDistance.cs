@@ -10,17 +10,19 @@ public class IconDistance : MonoBehaviour {
 	private SpriteRenderer renderer;
 	private float percentage;
 	private Color trans;
+	private Transform camera;
 
 	void Start () {
 		renderer = GetComponent<SpriteRenderer> ();
+		camera = Camera.main.transform;
 		trans = Color.white;
 		trans.a = 0;
 	}
 
 	void Update () {
-		transform.LookAt (Camera.main.transform.position);
+		transform.LookAt (camera.position);
 
-		float dist = Vector3.Distance (Camera.main.transform.position, transform.position);
+		float dist = Vector3.Distance (camera.position, transform.position);
 
 		if (dist < maxRange && dist > minRange) {
 			percentage += Time.deltaTime;

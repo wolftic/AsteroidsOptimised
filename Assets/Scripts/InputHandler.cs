@@ -26,7 +26,6 @@ public class InputHandler : MonoBehaviour {
 	}
 
 	void Update() {
-
 		if (Input.GetKey (inputs["leftKnop"]) && !Input.GetKey (inputs["rightKnop"])) {
 			if (horizontal <= 1) {
 				horizontal -= Time.deltaTime * 3;

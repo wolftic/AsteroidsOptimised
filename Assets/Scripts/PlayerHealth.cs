@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour 
 {
-	//[HideInInspector]
-	public float Health;
+	public float health;
 	public Image healthBar;
 	private float regenDelay = 1.0F;
 	private float regenTime = 0.0F;
@@ -14,14 +13,13 @@ public class PlayerHealth : MonoBehaviour
 
 	public void doDamage(float damage) 
 	{
-		Health -= damage;
-		Debug.Log (Camera.main);
+		health -= damage;
 		Camera.main.transform.GetComponent<CameraShake> ().ShakeCamera (10f, .5f);
 	}
 
 	void Update()
 	{
-		if(Time.time > regenTime && Health < 100)
+		if(Time.time > regenTime && health < 100)
 		{
 			Regeneration ();
 		}
@@ -31,10 +29,10 @@ public class PlayerHealth : MonoBehaviour
 			invokingPoison = true;
 		}
 
-		healthBar.fillAmount = Health / 100;
+		healthBar.fillAmount = health / 100;
 
 		if (gameObject) {
-			if (Health <= 0) {
+			if (health <= 0) {
 				GameObject explosion = Instantiate (Resources.Load ("FX_Particle", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject; 
 				Destroy (explosion, 4.9f);
 				Destroy (gameObject);
@@ -47,12 +45,12 @@ public class PlayerHealth : MonoBehaviour
 			invokingPoison = false;
 			CancelInvoke ();
 		}
-		Health -= 3;
+		health -= 3;
 	}
 
 	private void Regeneration()
 	{
-		Health++;
+		health++;
 		regenTime = Time.time + regenDelay;
 	}
 }

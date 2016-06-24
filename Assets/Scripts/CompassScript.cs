@@ -6,7 +6,8 @@ public class CompassScript : MonoBehaviour {
 	[SerializeField]
 	private Renderer compass;
 
-	public List<Point> points = new List<Point>();
+	[SerializeField]
+	private List<Point> points = new List<Point>();
 
 	[SerializeField]
 	private SpriteRenderer[] prefab;
@@ -32,16 +33,10 @@ public class CompassScript : MonoBehaviour {
 			this.color = Color.white;
 			this.sprite = Instantiate(sprite) as SpriteRenderer;
 			this.sprite.transform.SetParent(GameObject.FindGameObjectWithTag("Compass").transform, true);
-			//this.sprite.transform.localScale = new Vector3(0.02f, .2f, 1f);
 		}
 	}
 
-	public Point nullPoint;
-
-	void Start () {
-		//AddPoint ("Shop", Vector3.forward * 5, Color.blue, prefab);
-		//nullPoint = new Point("null", gameObject, Color.black, prefab[0]);
-	}
+	private Point nullPoint;
 
 	void Update () {
 		float yStep = 1.0f /  360f;
@@ -62,8 +57,6 @@ public class CompassScript : MonoBehaviour {
 			float xPosition = Mathf.Lerp (-.5f, .5f, axis);
 			points [i].sprite.color = points [i].color;
 			points [i].sprite.transform.localPosition = new Vector3 (xPosition, 0, 0);
-
-			//Debug.Log (xPosition);
 		}
 	}
 

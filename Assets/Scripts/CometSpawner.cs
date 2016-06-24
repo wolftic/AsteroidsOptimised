@@ -2,9 +2,12 @@
 using System.Collections;
 
 public class CometSpawner : MonoBehaviour {
-	public GameObject comet;
-	public float spawnDelay;
-	public float radius;
+	[SerializeField]
+	private GameObject comet;
+	[SerializeField]
+	private float spawnDelay;
+	[SerializeField]
+	private float radius;
 	private float spawnTime;
 	private InputHandler inputHandler;
 

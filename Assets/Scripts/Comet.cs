@@ -9,8 +9,13 @@ public class Comet : MonoBehaviour {
 	[SerializeField]
 	private float damage;
 
+	private Transform child;
+	private Transform camera;
+
 	void Start () {
 		cometSpawner = GameObject.Find ("CometSpawner").GetComponent <CometSpawner> ();
+		child = transform.GetChild (0);
+		camera = Camera.main.transform;
 	}
 
 	void OnEnable () {
@@ -20,7 +25,7 @@ public class Comet : MonoBehaviour {
 
 	void Update () {
 		transform.Translate (Vector3.forward * 10.0f * Time.deltaTime);
-		transform.GetChild (0).LookAt (Camera.main.transform.position);
+		child.LookAt (camera.position);
 		if (time < Time.time) {
 			split ();
 		}
