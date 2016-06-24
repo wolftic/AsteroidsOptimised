@@ -36,7 +36,7 @@ public class BossEvents : MonoBehaviour {
 	}
 
 	void Update(){
-		if (playerHealth.Health <= 1) {
+		if (playerHealth.health <= 1) {
 			poisonCanvas.enabled = false;
 			frozenCanvas.enabled = false;
 		}
