@@ -24,7 +24,7 @@ public class GameOverScript : MonoBehaviour {
 	}
 
 	void Update(){
-		if (playerHealth.Health <= 0 && !playerdying) {
+		if (playerHealth.health <= 0 && !playerdying) {
 			playerdying = true;
 			GameOverFadeIn ();
 		}
